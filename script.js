@@ -6,7 +6,8 @@ let gameover=new Audio("gameover.mp3");
 let isgameover=false;
 
 let turn="X";
-
+let count=0;
+let won=false;
 // Function to change the turn
 const changeTurn=() => {
     return turn==="X"?"O": "X";
@@ -14,6 +15,7 @@ const changeTurn=() => {
 
 // Function to check for a Win
 const checkWin=()=> {
+    count=count+1;
     let boxtext=document.getElementsByClassName("boxtext");
     let wins=[
         [0, 1, 2, 5, 5, 0, 20],
@@ -35,7 +37,7 @@ const checkWin=()=> {
             document.querySelector('.imgbox').getElementsByTagName('img')[0].style.width="200px";
             document.querySelector('.line').style.transform= `translate(${e[3]}vw, ${e[4]}vw) rotate(${e[5]}deg)`;
             document.querySelector('.line').style.width= `${e[6]}vw`;
-            
+            won=true;
             wins.forEach(e=> {
                 if(boxtext[e[0]].innerText==="") {
                     boxtext[e[0]].innerText="-";
@@ -47,9 +49,13 @@ const checkWin=()=> {
                     boxtext[e[2]].innerText="-";
                 }
             })
-
-         }
+            
+        }
     })
+    if(count===9 && won===false) {
+        document.querySelector('.info').innerText="It's a Draw!";
+        
+    }
 }
 
 // Game Logic
