@@ -28,6 +28,7 @@ const checkWin=()=> {
         [2, 4, 6, 0, 15, 135, 30],
     ]
     wins.forEach(e=> {
+        console.log(count);
         if((boxtext[e[0]].innerText===boxtext[e[1]].innerText) &&
          (boxtext[e[1]].innerText===boxtext[e[2]].innerText) &&
          (boxtext[e[1]].innerText!=="") && (boxtext[e[1]].innerText!=="-")) {
@@ -52,26 +53,29 @@ const checkWin=()=> {
             
         }
     })
-    if(count===9 && won===false) {
-        document.querySelector('.info').innerText="It's a Draw!";
-        
+    // if(count===9 && won==false) {
+        //     document.querySelector('.info').innerText="It's a Draw!";
+        // }
     }
-}
-
-// Game Logic
-music.play();
-music.volume=0.1;
-let boxes=document.getElementsByClassName("box");
-Array.from(boxes).forEach(element=> {
-    let boxtext=element.querySelector('.boxtext');
-    element.addEventListener('click', ()=> {
-        if(boxtext.innerText==='') {
-            boxtext.innerText=turn;
-            turn=changeTurn();
-            audioTurn.play();
-            checkWin();
-            if(!isgameover)
+    
+    // Game Logic
+    music.play();
+    music.volume=0.1;
+    let boxes=document.getElementsByClassName("box");
+    Array.from(boxes).forEach(element=> {
+        let boxtext=element.querySelector('.boxtext');
+        element.addEventListener('click', ()=> {
+            if(boxtext.innerText==='') {
+                boxtext.innerText=turn;
+                turn=changeTurn();
+                audioTurn.play();
+                checkWin();
+                if(!isgameover)
                 document.getElementsByClassName("info")[0].innerHTML="Turn for "+turn;
+                if(count===9 && won==false) {
+                    gameover.play();
+                    document.querySelector('.info').innerText="It's a Draw!";
+                }
         }
     })
 })
@@ -83,6 +87,7 @@ reset.addEventListener('click', ()=> {
     Array.from(boxtexts).forEach(element=> {
         element.innerText="";
     });
+    count=0;
     turn ="X";
     isgameover=false;
     document.getElementsByClassName("info")[0].innerHTML="Turn for "+turn;
