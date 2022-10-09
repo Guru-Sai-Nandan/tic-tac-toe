@@ -53,9 +53,6 @@ const checkWin=()=> {
             
         }
     })
-    // if(count===9 && won==false) {
-        //     document.querySelector('.info').innerText="It's a Draw!";
-        // }
     }
     
     // Game Logic
@@ -72,7 +69,7 @@ const checkWin=()=> {
                 checkWin();
                 if(!isgameover)
                 document.getElementsByClassName("info")[0].innerHTML="Turn for "+turn;
-                if(count===9 && won==false) {
+                if(count==9 && won==false) {
                     gameover.play();
                     document.querySelector('.info').innerText="It's a Draw!";
                 }
